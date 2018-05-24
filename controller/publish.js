@@ -4,8 +4,13 @@ const bot = new TelegramBot(token, {polling: false});
 const chatId = -260151687;
 
 let publish = async (message)=>{
-    let result = await bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
-    return !!(result && result.message_id)
+    try {
+        let result = await bot.sendMessage(chatId, message, {parse_mode: "Markdown"});
+        return !!(result && result.message_id)
+    } catch (e) {
+        console.log(`{E} in controller/publish:: ${e}`);
+        return e
+    }
 };
 
 
